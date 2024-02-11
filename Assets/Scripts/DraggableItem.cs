@@ -59,59 +59,76 @@ public class DraggableItem : MonoBehaviour
             switch (currentItemName)
             {
                 case "water":
-                    feedbackText.text = "Doğru Seçim! Depremden sonra 72 saat yetecek kadar su almalısın.";
+                    feedbackText.text = "Right Choice! You should take enough water for at least 72 hours after the earthquake.";
+                    gameObject.transform.localScale = endSize;
                     break;
 
                 case "clothes":
-                    feedbackText.text = "Harika! Hava koşullarına uygun giysiler seçtin. Sıcaklık değişimlerine karşı hazırlıklı olmalısın.";
+                    feedbackText.text = "Excellent! You have picked right clothes for different weather conditions.";
+                    gameObject.transform.localScale = endSize;
                     break;
 
                 case "whistle":
-                    feedbackText.text = "Çok Akıllıca! İnsanların dikkatini çekebilmek için bir düdük bulundurmalısın.";
+                    feedbackText.text = "Smart! You must use a whistle to take people's attention.";
+                    gameObject.transform.localScale = endSize;
                     break;
-
-                case "pen":
-                    feedbackText.text = "Güzel Seçim! Not almak veya iletişim kurmak için bir kalem her zaman işe yarar.";
-                    break;
-
-                case "shelf":
-                    feedbackText.text = "Sanırım bir hata oldu. Raf ne yazık ki taşınabilir değil. Lütfen başka bir şey seç.";
-                    break;
-
-                case "calculator":
-                    feedbackText.text = "İyi Düşündün! Hesaplamalar yapmak veya sayıları kontrol etmek için bir hesap makinesi önemli olabilir.";
-                    break;
-
-                case "keyboard":
-                    feedbackText.text = "Tuşları neden taşıyorsun ki? Sanırım bu öğe bir hata. Lütfen başka bir şey seç.";
-                    break;
-
+                
                 case "scissors":
-                    feedbackText.text = "Keskin bir şey bulundurmak her zaman işe yarar. Tebrikler!";
+                    feedbackText.text = "Perfect! It always helps to have something sharp.";
+                    gameObject.transform.localScale = endSize;
                     break;
 
                 case "radio":
-                    feedbackText.text = "Mükemmel Seçim! Haberleri takip etmek ve iletişim kurmak için bir radyo çok önemli.";
+                    feedbackText.text = "Excellent Choice! It is very important to follow the news.";
+                    gameObject.transform.localScale = endSize;
+                    break;
+                case "konserve":
+                    feedbackText.text = "Right Choice! You should take enough food for at least 72 hours after the earthquake.";
+                    gameObject.transform.localScale = endSize;
                     break;
 
+                case "soap":
+                    feedbackText.text = "Wonderful! It is important to clean yourself.";
+                    gameObject.transform.localScale = endSize;
+                    break;
+                
+                case "medkit":
+                    feedbackText.text = "Brilliant! It is very important to take medkit as a someone could get hurt";
+                    gameObject.transform.localScale = endSize;
+                    break;
+                
+                case "battery":
+                    feedbackText.text = "Great! You need to keep running your electronic items.";
+                    gameObject.transform.localScale = endSize;
+                    break;
+                case "paper":
+                    feedbackText.text = "Great! Take care of your hygiene.";
+                    gameObject.transform.localScale = endSize;
+                    break;
                 default:
-                    feedbackText.text = "Bu öğe deprem çantasına uygun değil gibi görünüyor. Lütfen başka bir şey seç.";
+                    feedbackText.text = "You can prioritize more important items";
+                    MoveBackTheItem();
                     break;
             }
-            gameObject.transform.localScale = endSize;
+            
             feedbackText.gameObject.SetActive(true);
             feedbackTextBackground.gameObject.SetActive(true);
             StartCoroutine(FadeOutText());
         }
         else
         {
-            // Change the parent back to the initial parent (e.g., firstLocation)
-            transform.parent = firstLocation.transform.parent.transform;
-
-            // Move to the initial position
-            transform.position = firstLocation.transform.position;
-            transform.localScale = initialSize;
+            MoveBackTheItem();
         }
+    }
+
+    private void MoveBackTheItem()
+    {
+        // Change the parent back to the initial parent (e.g., firstLocation)
+        transform.parent = firstLocation.transform.parent.transform;
+
+        // Move to the initial position
+        transform.position = firstLocation.transform.position;
+        transform.localScale = initialSize;
     }
 
     void Update()

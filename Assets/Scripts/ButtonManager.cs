@@ -16,7 +16,7 @@ public class ButtonManager : MonoBehaviour
 
     enum Screen { Screen1, Screen2, Screen3 };
 
-    private Screen currentScreen = Screen.Screen2;
+    private Screen currentScreen = Screen.Screen1;
     
     // Start is called before the first frame update
     void Start()

@@ -41,21 +41,25 @@ public class GridManager : MonoBehaviour
     
     public bool IsInsideGrid(Vector3 position)
     {
-        float minX = transform.position.x;
-        float minY = transform.position.y;
-        float maxX = minX + gridSizeX * cellSize;
-        float maxY = minY + gridSizeY * cellSize;
+        float minX = transform.position.x-1;
+        float minY = transform.position.y-1;
+        float maxX = minX + gridSizeX * cellSize+1;
+        float maxY = minY + gridSizeY * cellSize+1;
 
         return (position.x >= minX && position.x <= maxX && position.y >= minY && position.y <= maxY);
     }
 
     public Vector3 GetNearestGridPosition(Vector3 position)
     {
-        int x = Mathf.RoundToInt((position.x - transform.position.x) / cellSize);
-        int y = Mathf.RoundToInt((position.y - transform.position.y) / cellSize);
+        float x = Mathf.Floor((position.x - transform.position.x) / cellSize + 0.5f);
+        float y = Mathf.Floor((position.y - transform.position.y) / cellSize + 0.5f);
 
         Vector3 nearestPosition = new Vector3(x * cellSize + transform.position.x, y * cellSize + transform.position.y, 0f);
 
+        Debug.Log("Input Position: " + position);
+        Debug.Log("Nearest Position: " + nearestPosition);
+        
         return nearestPosition;
     }
+
 }
