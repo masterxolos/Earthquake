@@ -13,10 +13,14 @@ public class DraggableItem : MonoBehaviour
     public TextMeshProUGUI feedbackText;
     public SpriteRenderer feedbackTextBackground;
 
+    public Vector3 initialSize;
+    public Vector3 endSize;
+
     [SerializeField]private string currentItemName; 
     
     void Start()
     {
+        initialSize = gameObject.transform.localScale;
         gridManager = GameObject.FindObjectOfType<GridManager>();
         itemCollider = GetComponent<Collider2D>();
     }
@@ -52,13 +56,52 @@ public class DraggableItem : MonoBehaviour
             // Snap to the grid
             transform.position = gridManager.GetNearestGridPosition(transform.position);
 
-            if (currentItemName == "water")
+            switch (currentItemName)
             {
-                feedbackText.text = "Doğru Seçim! Depremden sonra 72 saat yetecek kadar su almalısın.";
-                feedbackText.gameObject.SetActive(true);
-                feedbackTextBackground.gameObject.SetActive(true);
-                StartCoroutine(FadeOutText());
+                case "water":
+                    feedbackText.text = "Doğru Seçim! Depremden sonra 72 saat yetecek kadar su almalısın.";
+                    break;
+
+                case "clothes":
+                    feedbackText.text = "Harika! Hava koşullarına uygun giysiler seçtin. Sıcaklık değişimlerine karşı hazırlıklı olmalısın.";
+                    break;
+
+                case "whistle":
+                    feedbackText.text = "Çok Akıllıca! İnsanların dikkatini çekebilmek için bir düdük bulundurmalısın.";
+                    break;
+
+                case "pen":
+                    feedbackText.text = "Güzel Seçim! Not almak veya iletişim kurmak için bir kalem her zaman işe yarar.";
+                    break;
+
+                case "shelf":
+                    feedbackText.text = "Sanırım bir hata oldu. Raf ne yazık ki taşınabilir değil. Lütfen başka bir şey seç.";
+                    break;
+
+                case "calculator":
+                    feedbackText.text = "İyi Düşündün! Hesaplamalar yapmak veya sayıları kontrol etmek için bir hesap makinesi önemli olabilir.";
+                    break;
+
+                case "keyboard":
+                    feedbackText.text = "Tuşları neden taşıyorsun ki? Sanırım bu öğe bir hata. Lütfen başka bir şey seç.";
+                    break;
+
+                case "scissors":
+                    feedbackText.text = "Keskin bir şey bulundurmak her zaman işe yarar. Tebrikler!";
+                    break;
+
+                case "radio":
+                    feedbackText.text = "Mükemmel Seçim! Haberleri takip etmek ve iletişim kurmak için bir radyo çok önemli.";
+                    break;
+
+                default:
+                    feedbackText.text = "Bu öğe deprem çantasına uygun değil gibi görünüyor. Lütfen başka bir şey seç.";
+                    break;
             }
+            gameObject.transform.localScale = endSize;
+            feedbackText.gameObject.SetActive(true);
+            feedbackTextBackground.gameObject.SetActive(true);
+            StartCoroutine(FadeOutText());
         }
         else
         {
@@ -67,6 +110,7 @@ public class DraggableItem : MonoBehaviour
 
             // Move to the initial position
             transform.position = firstLocation.transform.position;
+            transform.localScale = initialSize;
         }
     }
 
